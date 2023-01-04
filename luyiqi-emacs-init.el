@@ -36,7 +36,28 @@
   (package-refresh-contents))
 
 ;; Install packages.
-(dolist (package '(slime paredit rainbow-delimiters company company-quickhelp slime-company async helm magit use-package doom-themes which-key))
+(dolist (package '(slime
+                   paredit
+                   rainbow-delimiters
+                   company
+                   company-quickhelp
+                   slime-company
+                   async
+                   helm
+                   helm-lsp
+                   magit
+                   use-package
+                   doom-themes
+                   which-key
+                   ox-reveal
+                   lsp-mode
+                   lsp-ui
+                   lsp-java
+                   lsp-treemacs
+                   flycheck
+                   treemacs
+                   treemacs-all-the-icons
+                   ))
   (unless (package-installed-p package)
     (package-install package)))
 
@@ -178,3 +199,40 @@
 ;; which-key setup
 (require 'which-key)
 (which-key-mode)
+
+;; org-reveal
+(require 'ox-reveal)
+
+;; lsp-mode
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (java-mode . lsp-deferred)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands (lsp lsp-deferred))
+
+;; optionally
+(use-package lsp-ui :commands lsp-ui-mode)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+;; if you are helm user
+(use-package helm-lsp :commands helm-lsp-workspace-symbol)
+;; optional if you want which-key integration
+(use-package which-key
+    :config
+    (which-key-mode))
+
+;; lsp-java
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+(setq lsp-log-io nil) ; if set to true can cause a performance hit
+
+;; vterm
+;; (use-package vterm
+;;     :ensure t)
+
+;; treemacs all-the-icons
+(require 'treemacs-all-the-icons)
+(treemacs-load-theme "all-the-icons")
