@@ -57,6 +57,7 @@
                    flycheck
                    treemacs
                    treemacs-all-the-icons
+                   anki-editor
                    ))
   (unless (package-installed-p package)
     (package-install package)))
@@ -66,7 +67,7 @@
 
 
 ;; Configure SBCL as the Lisp program for SLIME.
-(add-to-list 'exec-path "/usr/local/bin")
+;; (add-to-list 'exec-path "/usr/local/bin")
 (setq inferior-lisp-program "sbcl")
 
 ;; Enable Paredit.
@@ -236,3 +237,7 @@
 ;; treemacs all-the-icons
 (require 'treemacs-all-the-icons)
 (treemacs-load-theme "all-the-icons")
+
+;; anki-editor
+(use-package anki-editor
+    :defer 5)
