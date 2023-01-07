@@ -67,7 +67,7 @@
 
 
 ;; Configure SBCL as the Lisp program for SLIME.
-;; (add-to-list 'exec-path "/usr/local/bin")
+(add-to-list 'exec-path "/usr/local/bin")
 (setq inferior-lisp-program "sbcl")
 
 ;; Enable Paredit.
@@ -241,3 +241,11 @@
 ;; anki-editor
 (use-package anki-editor
     :defer 5)
+
+(defun anki-editor--anki-connect-invoke! (orig-fun &rest args)
+  (let ((request--curl-callback
+         (lambda (proc event) (request--curl-callback "localhost" proc event))))
+    (apply orig-fun args)))
+
+(advice-add 'anki-editor--anki-connect-invoke :around #'anki-editor--anki-connect-invoke!)
+
