@@ -157,8 +157,7 @@
 (define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
 (define-key company-active-map (kbd "M-.") 'company-show-location)
 
-;; Helm config
-(require 'helm-config)
+
 ;(helm-autoresize-mode t)
 (global-set-key (kbd "M-x") 'helm-M-x)
 ;(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
