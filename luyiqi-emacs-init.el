@@ -62,6 +62,7 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+(package-initialize)
 ;; ORG MODE
 (setq org-log-done 'note)
 
